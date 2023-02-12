@@ -1,4 +1,4 @@
-import time
+import timeit
 import matplotlib.pyplot as plt
 
 def original_func(n):
@@ -19,15 +19,11 @@ original_times = []
 improved_times = []
 
 for i in range(36):
-    start = time.time()
-    original_func(i)
-    end = time.time()
-    original_times.append(end - start)
+    original_time = timeit.timeit(lambda: original_func(i), number=10)
+    original_times.append(original_time)
 
-    start = time.time()
-    improved_func(i)
-    end = time.time()
-    improved_times.append(end - start)
+    improved_time = timeit.timeit(lambda: improved_func(i), number=10)
+    improved_times.append(improved_time)
 
 plt.plot(original_times, label='Original')
 plt.plot(improved_times, label='Improved')
